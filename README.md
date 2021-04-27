@@ -94,6 +94,18 @@ There are some limitations that the programmer must keep in mind:
 
 ## Tips & Tricks
 
+* It is advisable to always check for the existence and RAM size of an REU before trying to use it. I describe some techniques for doing this in the "REU Detection Strategies" section below.
+* For best results, do as much preloading of game/application data (sprites, screens, maps, SID song data, etc.) early in the application run time. Try to do this during program initialization, while displaying "intro" or "attract" screens, text, or other pre-game tasks. If the program user will be using a 1541 drive without fastload capability...well, compromises and sacrifices with regard to preloading will be up to the application developer to decide. :)
+* If an REU is installed, any memory copying, swapping, or moving operation of "near" to "near" memory will be up to 5 times faster than XC=BASIC's MEMCPY or MEMSHIFT commands when done through the REU, especially for larger blocks of memory. This is because the REU's RAM Expansion Controller (REC) uses Direct Memory Access (DMA) to access memory, which is faster than using standard 6502 ML memory copy/move routines. To take advantage of this speed increase for a copy operation, first use the STASH operation of the REU_STASH() function to copy an area of "near" memory into the REU, then use the FETCH operation to place that stashed copy somewhere else in "near" memory. You'll see it's very fast indeed.
+* While REUs are equipped with lightning-fast DMA controllers, the REU data transfer process may not be fast enough to load in sound effects data at time-of-need. Beware. You can always test it out first to see if there's a noticeable delay or other effect on your program.
+
+## REU Detection Strategies
+
+As stated above, it's advisable to check for the existence and RAM size of an REU before attempting to use it. There are a few different ways to accomplish this. Here are some strategies:
+
+1. Early in your XC=BASIC program, attempt to write arbitrary values (non-zero and non-$ff) to the REU and then verify the results. Do this for as many banks of the REU as you plan to use. This is risky, however, because sometimes other devices map to the same I/O space and when that is the case writing values to these locations may cause unexpected, undesireable results.
+2. 
+
 
 
 
