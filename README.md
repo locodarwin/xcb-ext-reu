@@ -30,11 +30,13 @@ Where:
 * **reu_start_address** is the starting memory address of the installed REU as an integer (0-65534)
 * **reu_bank** is a single byte value that specifies the REU bank for the transfer, swap, or verify operation (0-254)
 
-Examples:
+## Example Use:
 
-`call reu_trans(0, 1000, $0400, $0000, 0)` -- sends 1000 bytes of c64 screen memory to the REU at REU bank 0
+`call reu_trans(0, 1000, $0400, $0000, 0)`
+Sends 1000 bytes of c64 screen memory to the REU at REU bank 0
 
-`call reu_trans(1, 1000, $0400, $0000, 3)` -- fetches 1000 bytes from REU and sends to c64 screen memory at bank 3
+`call reu_trans(1, 1000, $0400, $0000, 3)`
+Fetches 1000 bytes from REU and sends to c64 screen memory at bank 3
 
 `call reu_trans(2, 2000, $C000, $0000, 1)` -- swaps 2000 bytes of memory between c64 (at c64's $C000) and REU (at REU's $0000 bank 1)
 
