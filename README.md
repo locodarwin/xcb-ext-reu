@@ -11,7 +11,7 @@ That's it, you can now use all the symbols defined by this extension. Avoid nami
 
 # Example / Test
 
-Refer to the file *examples/reu-ext-test.bas* for a complete test of this extension.
+Refer to the file *examples/reu-ext-test.bas* for a complete example and test of this extension, written entirely in easy-to-read XC=BASIC code with comments.
 
 # Quick Reference
 
@@ -45,13 +45,13 @@ Swaps 2000 bytes of memory between c64 (at c64's $C000) and REU (at REU's $0000 
 Verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $0000 bank 0 of REU - a value of 1 will be placed in z! if all bytes match exactly, otherwise z! = 0
 
 
-**WARNING: For performance reasons, there is no sanity check for the arguments passed into reu_trans(). If you pass arguments that are out of bounds, you'll get unexpected and potentially catastrophic results without any warning or error.**
+**WARNING: For performance & memory saving reasons, there is no sanity/bounds check for the arguments passed into reu_trans(). If you pass arguments that are out of bounds, you'll get unexpected and potentially catastrophic results without any warning or error.**
 
 # Detailed Explanation
 
-Many Commodore 8-bit enthusiasts today possess RAM Expansion Units (REUs) of some type, either in the form of real Commodore hardware units such as the 17xx series or clones, the CMD GEORAM cartridge or clones, multi-function aftermarket expansion port cartridges (such as the 1541 Ultimate II+), or even as an REU option in an emulator such as Vice. XC=BASIC does not possess native commands to allow the programmer to harness the power of an REU, but with a simple extension function like the one provided here, it's now trivial to implement REU usage in your own XC=BASIC programs without having to understand the inner workings or I/O registers of such devices. Using an REU is now almost as simple as using the XC=BASIC MEMCPY command.
+Many Commodore 8-bit enthusiasts today possess RAM Expansion Units (REUs) of some type, either in the form of real Commodore hardware units such as the 17xx series or clones, the CMD GEORAM cartridge or clones, multi-function aftermarket expansion port cartridges (such as the 1541 Ultimate II+), or even as an REU option in an emulator such as Vice. XC=BASIC does not possess native commands to allow the programmer to harness the power of an REU, but with a simple extension function like the one provided here, it's now trivial to implement REU usage in your own XC=BASIC programs without having to understand the inner workings or I/O registers of such devices. Using an REU is now *almost* as simple as using the XC=BASIC MEMCPY command.
 
-For clarity of explanation, we will differentiate REU-installed RAM from internally-installed computer RAM through the use of the terms "near" and "far," as follows:
+For the sake of clarity, we will differentiate REU-installed RAM from internally-installed computer RAM through the use of the terms "near" and "far," as follows:
 
   * "Near" memory is the RAM that is natively installed in the computer. On the C64, this is the 64k that is natively addressable by the 6510 CPU. 
   * "Far" memory is the RAM that is installed in the REU. This can be anywhere from 128k to a whopping 16mb!
@@ -64,10 +64,10 @@ Because 65xx CPUs like the 6510 can only directly address (and thus access) 64k 
 
 What can you use an REU for in XC=BASIC? There are several possibilities, including the following:
 
-  * Preloading, stashing, and swapping ML routines or arbitrary code in and out of "near" (C64 internal) memory from "far" (REU) memory, to allow for larger or more modular application design than is possible on an unexpanded Commodore computer due to "near" memory limitations
+  * Preloading, stashing, and swapping ML routines or arbitrary code in and out of "near" memory from "far" memory, to allow for larger or more modular application design than is possible on an unexpanded Commodore computer due to "near" memory addressing limitations
   * Preloading, stashing, and restoring screen and color RAM for various uses, such as:
     * "Help screens" or other display information/text that isn't practical to store in "near" memory
-	* Windowing or menu routines that "remember" their screen & color information, to enable fast menu systems and the like while keeping "near" memory use to a minimum (every little bit of memory counts!)
+    * Windowing or menu routines that "remember" their screen & color information, to enable fast menu systems and the like while keeping "near" memory use to a minimum (every little bit of memory counts!)
     * Relatively fast character animation or "movies" of many, many preloaded screens' worth of PETSCII characters, comprised of the standard character set or even additional character sets
   * Stashing and restoring hi-res screens or chunks of bitmap, to enable tricks like pseudo double-buffering or to speed up runtime game or map display
   * Preloading, stashing, and restoring sprites by the dozens or even hundreds, so they don't have to be loaded entirely into precious "near" memory all at once or swapped in and out with a lot of disk I/O at play time
