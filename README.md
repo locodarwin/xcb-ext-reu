@@ -24,11 +24,11 @@ Usage:
   
 Where:
 
-* <operation> is a single byte value that specifies the type of reu transfer operation to perform (0 = stash, 1 = fetch, 2 = swap, >2 = verify)
-* <#_of_bytes> is the number of bytes to transfer, swap, or verify as an integer (max value 32768 or $8000) 
-* <c64_start_address> is the starting memory address of the c64 for the transfer, swap, or verify as an integer (0-65534)
-* <reu_start_address> is the starting memory address of the installed REU as an integer (0-65534)
-* <reu_bank> is a single byte value that specifies the REU bank for the transfer, swap, or verify operation (0-254)
+* **operation** is a single byte value that specifies the type of reu transfer operation to perform (0 = stash, 1 = fetch, 2 = swap, >2 = verify)
+* **#_of_bytes** is the number of bytes to transfer, swap, or verify as an integer (max value 32768 or $8000) 
+* **c64_start_address** is the starting memory address of the c64 for the transfer, swap, or verify as an integer (0-65534)
+* **reu_start_address** is the starting memory address of the installed REU as an integer (0-65534)
+* **reu_bank** is a single byte value that specifies the REU bank for the transfer, swap, or verify operation (0-254)
 
 Examples:
 
