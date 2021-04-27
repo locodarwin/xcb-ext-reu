@@ -36,11 +36,13 @@ Where:
 Sends 1000 bytes of c64 screen memory to the REU at REU bank 0
 
 `call reu_trans(1, 1000, $0400, $0000, 3)`
-Fetches 1000 bytes from REU and sends to c64 screen memory at bank 3
+-- Fetches 1000 bytes from $0000 at REU bank 3 and sends to c64 screen memory
 
-`call reu_trans(2, 2000, $C000, $0000, 1)` -- swaps 2000 bytes of memory between c64 (at c64's $C000) and REU (at REU's $0000 bank 1)
+`call reu_trans(2, 2000, $C000, $0000, 1)`
+-- Swaps 2000 bytes of memory between c64 (at c64's $C000) and REU (at REU's $0000 bank 1)
 
-`let z! = call reu_trans(3, 1234, $C000, $0000, 0)` -- verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $0000 bank 0 of REU - a value of 1 will be placed in z! if all bytes match exactly, otherwise z! = 0
+`let z! = call reu_trans(3, 1234, $C000, $0000, 0)`
+-- Verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $0000 bank 0 of REU - a value of 1 will be placed in z! if all bytes match exactly, otherwise z! = 0
 
 
 **WARNING: For performance reasons, there is no sanity check for the arguments passed into reu_trans(). If you pass arguments that are out of bounds, you'll get unexpected and potentially catastrophic results without any warning or error.**
