@@ -45,12 +45,16 @@ Examples:
 
 # Detailed Explanation
 
-Many Commodore 8-bit enthusiasts today possess Ram Expansion Units (REUs) of some type, either in the form of real Commodore hardware units such as the 17xx series, the CMD GEORam cartridge, multi-function aftermarket expansion port cartridges (such as the 1541 Ultimate II+, xxxxxxxxxxxxx), or even as an REU option in an emulator such as Vice.
-For the purposes of this documentation, we will differentiate REU-installed RAM from internally-installed computer RAM through the use of the terms "near" and "far," thus:
+Many Commodore 8-bit enthusiasts today possess RAM Expansion Units (REUs) of some type, either in the form of real Commodore hardware units such as the 17xx series or its clones, the CMD GEORAM cartridge or clones, multi-function aftermarket expansion port cartridges (such as the 1541 Ultimate II+), or even as an REU option in an emulator such as Vice. XC=BASIC does not possess a native command to allow the programmer to harness the power of an REU, but with a simple extension function like the one provided here, it's now trivial to implement REU usage in your own XC=BASIC programs without having to understand the inner workings of such devices.
+
+For clarity of explanation, we will differentiate REU-installed RAM from internally-installed computer RAM through the use of the terms "near" and "far," thus:
 
   * "Near" memory is the RAM that is natively installed in the computer. On the C64, this is the 64k that is natively addressable by the 6510 CPU. 
-
   * "Far" memory is the RAM that is installed in the REU. This can be anywhere from 128k to a whopping 16mb!
+
+Because 65xx CPUs like the 6510 can only directly address and thus access 64k of onboard memory, REUs are designed to STASH, FETCH, and SWAP memory between the computer and the REU's memory.
+
+## Why USE an REU in XC=BASIC?
 
 What can you use an REU for in XC-BASIC? There are several possibilities, including the following:
 
