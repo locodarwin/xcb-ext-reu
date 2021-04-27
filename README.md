@@ -45,5 +45,35 @@ Examples:
 
 # Detailed Explanation
 
-Here it is.
+Many Commodore 8-bit enthusiasts today possess Ram Expansion Units (REUs) of some type, either in the form of real Commodore hardware units such as the 17xx series, the CMD GEORam cartridge, multi-function aftermarket expansion port cartridges (such as the 1541 Ultimate II+, xxxxxxxxxxxxx), or even as an REU option in an emulator such as Vice.
+For the purposes of this documentation, we will differentiate REU-installed RAM from internally-installed computer RAM through the use of the terms "near" and "far," thus:
+
+  * "Near" memory is the RAM that is natively installed in the computer. On the C64, this is the 64k that is natively addressable by the 6510 CPU. 
+
+  * "Far" memory is the RAM that is installed in the REU. This can be anywhere from 128k to a whopping 16mb!
+
+What can you use an REU for in XC-BASIC? There are several possibilities, including the following:
+
+  * Preloading, stashing, and swapping ML routines or arbitrary code in and out of "near" (C64 internal) memory from "far" (REU) memory, to allow for larger or more modular application design than is possible on an unexpanded Commodore computer due to "near" memory limitations
+  * Preloading, stashing, and restoring screen and color RAM for various uses, such as:
+    * "Help screens" or other display information/text that isn't practical to store in "near" memory
+	* Windowing or menu routines that "remember" their screen & color information, to enable fast menu systems and the like while keeping "near" memory use to a minimum (every little bit of memory counts!)
+    * Relatively fast character animation or "movies" of many, many preloaded screens' worth of PETSCII characters, comprised of the standard character set or even additional character sets
+  * Stashing and restoring hi-res screens or chunks of bitmap, to enable tricks like pseudo double-buffering or to speed up runtime game or map display
+  * Preloading, stashing, and restoring sprites by the dozens or even hundreds, so they don't have to be loaded entirely into precious "near" memory all at once or swapped in and out with a lot of disk I/O at play time
+  * Stashing and restoring map data tables, as with 2d tiled games, so that such maps can be made larger without a lot of disk I/O during play time
+  * Preloading, stashing, and restoring game text, as with character dialog or text adventures, etc., again saving a lot of disk I/O during play time
+  * Allowing text manipulation programs, such as note taking applications, text editors, or word processors to work with more data at a time
+  * Preloading and storing of SID song or sound effect data (and even more interestingly, sound samples!) to be brought into "near" memory at opportune moments
+  * Copying arbitrary RAM areas from one place to another in "near" memory faster than with MEMCPY and MEMSHIFT (see the "Tips & Tricks" section below)
+  * Emulating "bank switching" for any application that may benefit from this kind of technique
+
+Other less practical or pragmatic things that are nonetheless technically possible:
+
+  * The creation of large "RAM drives" or similar for operating systems or command line application
+  * Working area for XC-BASIC based native compilers or (gasp) XC-BASIC run time language interpreters
+
+
+
+
 
