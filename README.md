@@ -49,18 +49,20 @@ Verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $
 
 # Detailed Explanation
 
-Many Commodore 8-bit enthusiasts today possess RAM Expansion Units (REUs) of some type, either in the form of real Commodore hardware units such as the 17xx series or its clones, the CMD GEORAM cartridge or clones, multi-function aftermarket expansion port cartridges (such as the 1541 Ultimate II+), or even as an REU option in an emulator such as Vice. XC=BASIC does not possess a native command to allow the programmer to harness the power of an REU, but with a simple extension function like the one provided here, it's now trivial to implement REU usage in your own XC=BASIC programs without having to understand the inner workings of such devices.
+Many Commodore 8-bit enthusiasts today possess RAM Expansion Units (REUs) of some type, either in the form of real Commodore hardware units such as the 17xx series or clones, the CMD GEORAM cartridge or clones, multi-function aftermarket expansion port cartridges (such as the 1541 Ultimate II+), or even as an REU option in an emulator such as Vice. XC=BASIC does not possess native commands to allow the programmer to harness the power of an REU, but with a simple extension function like the one provided here, it's now trivial to implement REU usage in your own XC=BASIC programs without having to understand the inner workings or I/O registers of such devices. Using an REU is now almost as simple as using the XC=BASIC MEMCPY command.
 
-For clarity of explanation, we will differentiate REU-installed RAM from internally-installed computer RAM through the use of the terms "near" and "far," thus:
+For clarity of explanation, we will differentiate REU-installed RAM from internally-installed computer RAM through the use of the terms "near" and "far," as follows:
 
   * "Near" memory is the RAM that is natively installed in the computer. On the C64, this is the 64k that is natively addressable by the 6510 CPU. 
   * "Far" memory is the RAM that is installed in the REU. This can be anywhere from 128k to a whopping 16mb!
 
-Because 65xx CPUs like the 6510 can only directly address and thus access 64k of onboard memory, REUs are designed to STASH, FETCH, and SWAP memory between the computer and the REU's memory.
+Because 65xx CPUs like the 6510 can only directly address (and thus access) 64k of onboard memory, REUs are designed to STASH, FETCH, and SWAP memory between the computer and the REU. This means a programmer cannot, for example, execute code that has been STASHed to the REU, nor PEEK or POKE the REU directly. The desired memory of the REU must be transferred to a safe location in the C64's memory first and then accessed in the usual way.
+
+
 
 ## Why USE an REU in XC=BASIC?
 
-What can you use an REU for in XC-BASIC? There are several possibilities, including the following:
+What can you use an REU for in XC=BASIC? There are several possibilities, including the following:
 
   * Preloading, stashing, and swapping ML routines or arbitrary code in and out of "near" (C64 internal) memory from "far" (REU) memory, to allow for larger or more modular application design than is possible on an unexpanded Commodore computer due to "near" memory limitations
   * Preloading, stashing, and restoring screen and color RAM for various uses, such as:
@@ -79,7 +81,19 @@ What can you use an REU for in XC-BASIC? There are several possibilities, includ
 Other less practical or pragmatic things that are nonetheless technically possible:
 
   * The creation of large "RAM drives" or similar for operating systems or command line application
-  * Working area for XC-BASIC based native compilers or (gasp) XC-BASIC run time language interpreters
+  * Working area for XC=BASIC based native compilers or (gasp) XC=BASIC run time language interpreters
+
+## Limitations
+
+There are some limitations that the programmer must keep in mind:
+
+* Since XC=BASIC was not designed with an REU in mind, this extension cannot enhance or expand the XC-BASIC memory map to give you more *direct* free RAM to use. As mentioned previously, the REU's RAM is not directly addressable by the CPU of the computer, so you are not able to write longer sections of XC-BASIC code than an unexpanded computer would allow, and built-in variables will still need to fit into the XC-BASIC's allocated RAM areas. These limitations can be somewhat overcome or worked-around if you compile separate XC-BASIC programs as code modules into other "near" memory start_address spaces (and without the BASIC loader), preload them into those "near" memory start_address spaces temporarily, and then STASH/FETCH them in and out of "far" memory as needed. Note, however, that such modules will not be able to share XC-BASIC variables directly at run time. Use memory directly for data you intend to share between code modules.
+* This extension cannot give the programmer more space for XC=BASIC's built in variables and data types, at least not directly. XC=BASIC was not designed with an REU in mind, so in order to stash and retrieve variables to/from the REU it would be necessary for the programmer to create buffer areas in "near" memory, either in the XC=BASIC program variable space through the use of arrays/indexes, or in programmer-reserved areas higher above the XC=BASIC program & variable space. While this is certainly something you can do if you wish, trying to handle XC=BASIC variables in this way isn't very practical in practice. Additionally, great care must be taken to ensure reserved areas do not interfere with XC-BASIC program and variable space, as it will most certainly cause crashes and/or variable overwriting.
+* The VIC-20's RAM expansion cartridges are of a different kind. Since the VIC-20 ships stock with only 3.5k or so of free RAM available to the programmer, all of the VIC-20's RAM expansion cartridges are designed to increase the amount of free RAM for use by the 6502 processor directly. Therefore this extension won't work at all on the VIC-20.
+* GEORAM and its clone devices work differently from standard REUs. GEORAM is not currently implemented but planned for a future release.
+
+## Tips & Tricks
+
 
 
 
