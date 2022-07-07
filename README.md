@@ -87,9 +87,9 @@ Other less practical or pragmatic things that are nonetheless technically possib
 
 There are some limitations that the programmer must keep in mind:
 
+* PET/CBM, C16/116/264/Plus4, and VIC-20 computers are not compatible with REUs, so this extension only supports the C64 and C128 XC=BASIC compile targets. Aftermarket memory upgrades for these other computers are intended to expand near (65xx direcly-addressable) memory rather than far memory.
 * Since XC=BASIC was not designed with an REU in mind, this extension cannot enhance or expand the XC-BASIC memory map to give you more *direct* free RAM to use. As mentioned previously, the REU's RAM is not directly addressable by the CPU of the computer, so you are not able to write longer sections of XC-BASIC code than an unexpanded computer would allow, and built-in variables will still need to fit into the XC-BASIC's allocated RAM areas. These limitations can be somewhat overcome or worked-around if you compile separate XC-BASIC programs as code modules into other "near" memory start_address spaces (and without the BASIC loader), preload them into those "near" memory start_address spaces temporarily, and then STASH/FETCH them in and out of "far" memory as needed. Note, however, that such modules will not be able to share XC-BASIC variables directly at run time. Use memory directly for data you intend to share between code modules.
 * This extension cannot give the programmer more space for XC=BASIC's built in variables and data types, at least not directly. XC=BASIC was not designed with an REU in mind, so in order to stash and retrieve variables to/from the REU it would be necessary for the programmer to create buffer areas in "near" memory, either in the XC=BASIC program variable space through the use of arrays/indexes, or in programmer-reserved areas higher above the XC=BASIC program & variable space. While this is certainly something you can do if you wish, trying to handle XC=BASIC variables in this way isn't very practical in practice. Additionally, great care must be taken to ensure reserved areas do not interfere with XC-BASIC program and variable space, as it will most certainly cause crashes and/or variable overwriting.
-* The VIC-20's RAM expansion cartridges are of a different kind. Since the VIC-20 ships stock with only 3.5k or so of free RAM available to the programmer, all of the VIC-20's RAM expansion cartridges are designed to increase the amount of free RAM for use by the 6502 processor directly. Therefore this extension won't work at all on the VIC-20.
 * GEORAM and its clone devices work differently from standard REUs. GEORAM is not currently implemented but planned for a future release.
 
 ## Tips & Tricks
@@ -99,15 +99,12 @@ There are some limitations that the programmer must keep in mind:
 * If an REU is installed, any memory copying, swapping, or moving operation of "near" to "near" memory will be up to 5 times faster than XC=BASIC's MEMCPY or MEMSHIFT commands when done through the REU, especially for larger blocks of memory. This is because the REU's RAM Expansion Controller (REC) uses Direct Memory Access (DMA) to access memory, which is faster than using standard 6502 ML memory copy/move routines. To take advantage of this speed increase for a copy operation, first use the STASH operation of the REU_STASH() function to copy an area of "near" memory into the REU, then use the FETCH operation to place that stashed copy somewhere else in "near" memory. You'll see it's very fast indeed.
 * While REUs are equipped with lightning-fast DMA controllers, the REU data transfer process may not be fast enough to load in sound effects data at time-of-need. Beware. You can always test it out first to see if there's a noticeable delay or other effect on your program.
 
-## REU Detection Strategies
+## REU Detection Strategy
 
-As stated above, it's advisable to check for the existence and RAM size of an REU before attempting to use it. There are a few different ways to accomplish this. Here are some strategies:
+As stated above, it's advisable to check for the existence and RAM size of an REU before attempting to use it, particularly if you intend to release your program for use by others. There are a few different ways to accomplish this. Here are some strategies:
 
 1. Early in your XC=BASIC program, attempt to write arbitrary values (non-zero and non-$ff) to the REU and then verify the results. Do this for as many banks of the REU as you plan to use. This is risky, however, because sometimes other devices map to the same I/O space and when that is the case writing values to these locations may cause unexpected, undesireable results.
-2. 
-
-
-
-
-
+2. As a quick hack you can check bit 4 of the REU's STATUS register ($DF00 on both C64/C128)
+3. Since strategy #1 takes up valuable program space to implement, it might be more efficient to create an ASM program to do it instead and stash it in some unused, untouched area of RAM. Or a stub program that loads before your main program to do the checks.
+4. I will publish a utility/example in XC=BASIC format that checks for the presence of an REU and performs a quick check to determine how many banks are available.
 
