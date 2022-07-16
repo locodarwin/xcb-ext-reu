@@ -93,7 +93,7 @@ There are some limitations that the programmer must keep in mind:
 * If an REU is installed, any memory copying, swapping, or moving operation of "near" to "near" memory will be up to 5 times faster than XC=BASIC's MEMCPY or MEMSHIFT commands when done through the REU, especially for larger blocks of memory. This is because the REU's RAM Expansion Controller (REC) uses Direct Memory Access (DMA) to access memory, which is faster than using standard 6502 ML memory copy/move routines. To take advantage of this speed increase for a copy operation, first use the STASH operation of the REU_STASH() function to copy an area of "near" memory into the REU, then use the FETCH operation to place that stashed copy somewhere else in "near" memory. You'll see it's very fast indeed.
 * While REUs are equipped with lightning-fast DMA controllers, the REU data transfer process may not be fast enough to load in sound effects data at time-of-need. Beware. You can always test it out first to see if there's a noticeable delay or other effect on your program.
 
-## REU Detection Strategy
+## REU Detection Strategies
 
 As stated above, it's advisable to check for the existence and RAM size of an REU before attempting to use it, particularly if you intend to release your program for use by others. There are a few different ways to accomplish this. Here are some strategies:
 
@@ -101,4 +101,3 @@ As stated above, it's advisable to check for the existence and RAM size of an RE
 2. As a quick hack you can check bit 4 of the REU's STATUS register ($DF00 on both C64/C128)
 3. Since strategy #1 takes up valuable program space to implement, it might be more efficient to create an ASM program to do it instead and stash it in some unused, untouched area of RAM. Or a stub program that loads before your main program to do the checks.
 4. I will soon publish a utility/example in XC=BASIC format that checks for the presence of an REU and performs a quick check to determine how many banks are available.
-
