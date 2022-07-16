@@ -35,7 +35,7 @@ Where:
 
 `x = reu_trans(0, 1000, $0400, $0000, 0)` - Sends 1000 bytes of C64/128 screen memory to the REU at REU bank 0
 
-`x = reu_trans(1, 1000, $0400, $0000, 3)` - Fetches 1000 bytes from $0000 at REU bank 3 and sends to c64 screen memory
+`x = reu_trans(1, 1000, $0400, $0000, 3)` - Fetches 1000 bytes from $0000 at REU bank 3 and sends to C64/128 screen memory
 
 `x = reu_trans(2, 2000, $B000, $0000, 1)` - Swaps 2000 bytes of memory between C64/128 (at C64/128's $B000) and REU (at REU's $0000 bank 1)
 
