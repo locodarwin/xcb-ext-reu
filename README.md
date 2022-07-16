@@ -1,5 +1,5 @@
 # xcb-ext-reu
-RAM Expansion Unit (REU) extension for XC=BASIC (version 3 only!)
+RAM Expansion Unit (REU) extension for XC=BASIC (v3 only)
 
 # Usage
 
@@ -11,7 +11,7 @@ That's it, you can now use all the shared constants defined by this extension. A
 
 # Example / Test
 
-Refer to the file *examples/reu-ext-test.bas* for a complete example and test of this extension, written entirely in easy-to-read XC=BASIC v3 code with comments.
+Refer to the file **examples/xcb-ext-reutest.bas** for a complete example and test of this extension, written entirely in easy-to-read XC=BASIC v3 code with comments.
 
 # Quick Reference
 
