@@ -39,7 +39,7 @@ Where:
 
 `x = reu_trans(2, 2000, $C000, $0000, 1)` - Swaps 2000 bytes of memory between c64 (at c64's $C000) and REU (at REU's $0000 bank 1)
 
-`x = reu_trans(3, 1234, $C000, $0000, 0)` - Verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $0000 bank 0 of REU - a value of 1 will be placed in z if all bytes match exactly, otherwise z = 0
+`x = reu_trans(3, 1234, $C000, $0000, 0)` - Verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $0000 bank 0 of REU - a value of 1 will be placed in x if all bytes match exactly, otherwise x = 0
 
 **WARNING: For performance & memory saving reasons, there is no sanity/bounds check for the arguments passed into reu_trans(). If you pass arguments that are out of bounds or aren't free memory, you may get unexpected and potentially catastrophic results without any warning or error.**
 
