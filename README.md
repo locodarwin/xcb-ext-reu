@@ -15,7 +15,7 @@ Refer to the file *examples/reu-ext-test.bas* for a complete example and test of
 
 # Quick Reference
 
-The extension adds a function to XC=BASIC that you can use to STASH, FETCH, SWAP, and VERIFY memory between the C64 (we'll call this "near" memory) and a RAM Expansion Unit (REU) (we'll call this "far memory"). Here is a brief description of the command:
+The extension adds a function to XC=BASIC that you can use to STASH, FETCH, SWAP, and VERIFY memory between the C64 and a RAM Expansion Unit (REU). Here is a brief description of the command:
 
 ## reu_trans()
 Usage:
@@ -33,17 +33,13 @@ Where:
 
 ## Example Use:
 
-`x = reu_trans(0, 1000, $0400, $0000, 0)`
-Sends 1000 bytes of c64 screen memory to the REU at REU bank 0
+`x = reu_trans(0, 1000, $0400, $0000, 0)` - Sends 1000 bytes of c64 screen memory to the REU at REU bank 0
 
-`x = reu_trans(1, 1000, $0400, $0000, 3)`
-Fetches 1000 bytes from $0000 at REU bank 3 and sends to c64 screen memory
+`x = reu_trans(1, 1000, $0400, $0000, 3)` - Fetches 1000 bytes from $0000 at REU bank 3 and sends to c64 screen memory
 
-`x = reu_trans(2, 2000, $C000, $0000, 1)`
-Swaps 2000 bytes of memory between c64 (at c64's $C000) and REU (at REU's $0000 bank 1)
+`x = reu_trans(2, 2000, $C000, $0000, 1)` - Swaps 2000 bytes of memory between c64 (at c64's $C000) and REU (at REU's $0000 bank 1)
 
-`x = reu_trans(3, 1234, $C000, $0000, 0)`
-Verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $0000 bank 0 of REU - a value of 1 will be placed in z if all bytes match exactly, otherwise z = 0
+`x = reu_trans(3, 1234, $C000, $0000, 0)` - Verifies 1234 bytes of memory starting at $C000 on c64 with memory starting at $0000 bank 0 of REU - a value of 1 will be placed in z if all bytes match exactly, otherwise z = 0
 
 **WARNING: For performance & memory saving reasons, there is no sanity/bounds check for the arguments passed into reu_trans(). If you pass arguments that are out of bounds or aren't free memory, you may get unexpected and potentially catastrophic results without any warning or error.**
 
