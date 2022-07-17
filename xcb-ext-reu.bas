@@ -1,3 +1,4 @@
+
 ' XC=BASIC v3 Extension
 ' REU Transfer
 '
@@ -11,6 +12,7 @@
 ' by Richard Hable
 ' http://www.ffd2.com/fridge/chacking/c=hacking8.txt
 
+' register constants
 shared const _REU_STATUS	= $DF00
 shared const _REU_COMMAND	= $DF01
 shared const _REU_INTBASE	= $DF02
@@ -19,6 +21,12 @@ shared const _REU_REUBANK	= $DF06
 shared const _REU_TRANSLEN	= $DF07
 shared const _REU_IRQMASK	= $DF09    ' not needed for this extension but included for reference
 shared const _REU_CONTROL	= $DF0A
+
+' operation constants
+shared const _REU_OP_STASH 	= $00
+shared const _REU_OP_FETCH	= $01
+shared const _REU_OP_SWAP 	= $02
+shared const _REU_OP_VERIFY	= $03
 
 ' **************************************************
 ' syntax: reu_trans(type, bytes, intadd, reuadd, reubank)
