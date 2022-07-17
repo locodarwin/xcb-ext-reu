@@ -3,13 +3,13 @@
 '
 ' By Shawn Olson aka Locodarwin
 '
-' Namespace: reu_
+' Namespace: _REU
 ' 
 ' The ML routine in this work is based primarily
 ' on the Commodore 1700, 1750, and 1764 user guides
 ' and the transfer routines described in C=Hacking #8
 ' by Richard Hable
-' https://rr.pokefinder.org/wiki/Programming_the_Commodore_REUs_C%3DHacking_Issue_8.txt
+' http://www.ffd2.com/fridge/chacking/c=hacking8.txt
 
 shared const _REU_STATUS	= $DF00
 shared const _REU_COMMAND	= $DF01
