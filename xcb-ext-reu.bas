@@ -34,7 +34,7 @@ shared const _REU_OP_VERIFY	= $03
 ' Transfers bytes between CPU (near) memory and REU (far) memory
 ' (Can also perform swap and verify operations)
 ' 
-' type		(byte)	The type of action to perform (0 = stash, 1 = fetch, 2 = swap, >2 = verify)
+' optype	(byte)	The type of action to perform (0 = stash, 1 = fetch, 2 = swap, >2 = verify)
 ' bytes		(word)	Number of bytes to transfer or swap (max 32768 or $8000)
 ' intadd	(word)	C64/C128 starting address
 ' reuadd	(word)	REU starting address
@@ -43,7 +43,7 @@ shared const _REU_OP_VERIFY	= $03
 ' Returns single byte value that contains success ($01) or failure ($00) of verify operation
 ' (the returned byte means nothing for non-verify operations)
 ' **************************************************
-function reu_trans as byte (type as byte, bytes as word, intadd as word, reuadd as word, reubank as byte) shared static
+function reu_trans as byte (optype as byte, bytes as word, intadd as word, reuadd as word, reubank as byte) shared static
     dim ret_byte as byte
     asm
 	
@@ -68,7 +68,7 @@ function reu_trans as byte (type as byte, bytes as word, intadd as word, reuadd 
     lda {bytes}+1
     sta $DF07+1
  
-    lda {type}				; which type of transfer? (0, 1, 2, or >2)
+    lda {optype}			; which type of transfer? (0, 1, 2, or >2)
     bne .fetchtest			; compare against 0 (stash)
     lda #%10010000			; if yes, set command reg to stash
     bne .command			; then go do it
